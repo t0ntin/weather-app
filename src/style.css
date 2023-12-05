@@ -88,12 +88,12 @@ a {
   align-content: center;
 }
 
-.any-input {
+.city-input-el {
   margin: 3px 0 15px 0;
-  background-color: var(--SECONDARY-BG-COLOR);
+  background-color: rgb(95, 93, 93);
   border-radius: 12px;
   border: 0;
-  color: var(--MAIN-TEXT-COLOR);
+  color: white;
   outline: none;
   padding: 8px 20px 8px;
   width: 100%;
