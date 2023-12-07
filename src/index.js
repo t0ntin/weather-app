@@ -1,21 +1,27 @@
 import './style.css';
 // import plus from './images/plus.svg';
 
-const weatherDataEl = document.querySelector('.weather-data-el');
+// const weatherDataEl = document.querySelector('.weather-data-el');
 const cityNameEl = document.querySelector('.city-name-el');
 const timeEl = document.querySelector('.time-el');
 const conditionEl = document.querySelector('.condition-el');
-const temperatureEl = document.querySelector('.temperature-el');
+// const temperatureEl = document.querySelector('.temperature-el');
 const celsiusEl = document.querySelector('.celsius-el');
 const fahrenheitEl = document.querySelector('.fahrenheit-el');
 const humidityEl = document.querySelector('.humidity-el');
-const tomorrowEl = document.querySelector('.tomorrow');
-const tomorrowButton = document.querySelector('.tomorrow-button');
+// const temperatureEl2 = document.querySelector('.temperature-el-2');
+const celsiusEl2 = document.querySelector('.celsius-el-2');
+const fahrenheitEl2 = document.querySelector('.fahrenheit-el-2');
+const conditionEl2 = document.querySelector('.condition-el-2');
+
+// const tomorrowEl = document.querySelector('.tomorrow');
+// const tomorrowButton = document.querySelector('.tomorrow-button');
 
 const cityInputEl = document.querySelector('.city-input-el');
 const searchButton = document.querySelector('.search-button');
 const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
 const conditionImg = document.querySelector('.condition-img');
+const conditionImg2 = document.querySelector('.condition-img-2');
 
 console.log('test');
 
@@ -144,6 +150,12 @@ const handleSearchClick = async () => {
   fahrenheitEl.innerText = json.current.temp_f;
   humidityEl.innerText = json.current.humidity;
 
+  // tomorrow
+  celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
+  fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
+  conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
+  conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
+  conditionEl2.append(conditionImg2);
   return json;
 };
 
@@ -154,12 +166,3 @@ document.addEventListener('keydown', (event) => {
     handleSearchClick();
   }
 });
-
-const handleTomorrowClick = async () => {
-  const json = await handleSearchClick();
-  if (!json) {
-    console.log('nothing here');
-  }
-};
-
-tomorrowButton.addEventListener('click', handleTomorrowClick);

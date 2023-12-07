@@ -7,7 +7,7 @@
 <script defer src="bundle.js"></script></head>
 <body>
   <main class="main flex-col">
-    <div class="weather-data-el-container">
+    <div class="weather-data-el-container flex-col">
 
       <div class="weather-data-el flex-col"> 
   
@@ -15,7 +15,7 @@
         <p class="time-el">3:30</p>
         <p class="condition-el">Parcialmente nublado</p>
   
-        <img src="" alt="" class="condition-img" width=100>
+        <img src="" alt="" class="condition-img" width=80>
         <p class="temperature-el">
           <span class="celsius-el">30C</span> / 
           <span class="fahrenheit-el">100F</span>
@@ -24,9 +24,16 @@
 
       </div>
 
-      <div class="weather-data-tomorrow-el">
-        
-      </div>
+  <!-- TOMORROW -->
+      <div class="weather-data-tomorrow-el flex-col">
+        <p class="tomorrow">Manana:</p>
+        <p class="temperature-el-2">
+          <span class="celsius-el-2">30C</span> / 
+          <span class="fahrenheit-el-2">100F</span>
+        </p>
+        <p class="condition-el-2">Lluvia moderada</p>
+        <img src="" alt="" class="condition-img-2" width=80>
+      </div>  
     </div>
 
     <div class="bottom-container">
