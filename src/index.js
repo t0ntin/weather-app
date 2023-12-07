@@ -1,4 +1,7 @@
 import './style.css';
+import { convertEpochToDate } from './dates';
+import { format } from 'date-fns';
+
 // import plus from './images/plus.svg';
 
 // const weatherDataEl = document.querySelector('.weather-data-el');
@@ -10,6 +13,8 @@ const celsiusEl = document.querySelector('.celsius-el');
 const fahrenheitEl = document.querySelector('.fahrenheit-el');
 const humidityEl = document.querySelector('.humidity-el');
 // const temperatureEl2 = document.querySelector('.temperature-el-2');
+
+const tomorrowDateEl = document.querySelector('.tomorrow-date-el');
 const celsiusEl2 = document.querySelector('.celsius-el-2');
 const fahrenheitEl2 = document.querySelector('.fahrenheit-el-2');
 const conditionEl2 = document.querySelector('.condition-el-2');
@@ -142,7 +147,7 @@ const handleSearchClick = async () => {
   const json = await response.json();
   // console.log(json);
   cityNameEl.innerText = json.location.name;
-  timeEl.innerText = json.location.localtime;
+  displayTodaysDate(json);
   conditionEl.innerText = json.current.condition.text;
   conditionImg.setAttribute('src', json.current.condition.icon);
   conditionEl.append(conditionImg);
@@ -151,13 +156,27 @@ const handleSearchClick = async () => {
   humidityEl.innerText = json.current.humidity;
 
   // tomorrow
+  displayTomorrowsDate(json);
   celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
   fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
   conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
   conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
   conditionEl2.append(conditionImg2);
+
   return json;
 };
+
+const displayTodaysDate = (json) => {
+  const dateEpoch = json.location.localtime_epoch;
+  const formattedDate = convertEpochToDate(dateEpoch);
+  timeEl.innerText = formattedDate;
+}
+
+const displayTomorrowsDate = (json) => {
+  const dateEpoch = json.forecast.forecastday[1].date_epoch;
+  const formattedDate = convertEpochToDate(dateEpoch);
+  tomorrowDateEl.innerText = formattedDate;
+}
 
 searchButton.addEventListener('click', handleSearchClick);
 
