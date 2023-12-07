@@ -6,17 +6,37 @@
   <title>Weather App</title>
 </head>
 <body>
-  <div class="main">
-      <div class="test flex-col">Lato font
+  <main class="main flex-col">
+    <div class="weather-data-el-container">
 
-        <p class="test2">M PLUS Code Latin font</p>
+      <div class="weather-data-el flex-col"> 
+  
+        <p class="city-name-el">City Name</p>
+        <p class="time-el">3:30</p>
+        <p class="condition-el">Parcialmente nublado</p>
+  
+        <img src="" alt="" class="condition-img" width=100>
+        <p class="temperature-el">
+          <span class="celsius-el">30C</span> / 
+          <span class="fahrenheit-el">100F</span>
+        </p>
+        <p class="humidity-el">Humedad 90</p>
+
       </div>
-  <div class="weather-data-el">
-    <input type="text" class="city-input-el" placeholder="Enter city name">
-    <img src="" alt="" class="condition-img">
-    <button class="search-button">Que tiempo hace?</button>
-  </div>
-  </div>
+
+      <div class="weather-data-tomorrow-el">
+        
+      </div>
+    </div>
+
+    <div class="bottom-container">
+      <label for="city-input-el" class="city-input-label">Como esta el tiempo en: </label>
+      <input type="text" id="city-input-el" class="city-input-el" placeholder="Ciudad">
+    <button class="search-button">Consultar</button>
+
+  </main>
+</div>
+
 
 </body>
 </html>

@@ -5,27 +5,25 @@
   box-sizing: border-box;
   list-style: none;
 }
-
+ 
 *::before, *::after {
   box-sizing: border-box;
 }
 
 :root {
-
+ --BOX-BACKGROUND-COLOR: rgba(0, 0, 0, 0.622);
 }
 
 html {
   height: 100%;
-  font-family: "Lato", sans-serif;
+  font-family: 'M PLUS Code Latin';
 
 }
 
 body {
   height: 100vh;
-  background-color: hsla(0, 0%, 0%, 0.925);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+
 }
 
 input, button, textarea, select {
@@ -62,15 +60,21 @@ a {
     font-style: normal;
     }
 
-.test {
-  color: red;
-  font-family: 'Lato';
-  border: 1px solid whites;
-}
+.main {
+  min-width: 300px;
+  max-width: 415px;
+  height: 100%;
+  background-color: black;
+  background-image: url(./images/backgroundimage.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+  color: white;
+  border: 1px solid green;
 
-.test2 {
-  font-family: 'M PLUS Code Latin';
-  color: rgb(2, 225, 2);
 }
 
 .flex {
@@ -83,21 +87,181 @@ a {
 .flex-col {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   align-content: center;
 }
 
+.weather-data-el-container {
+  /* width: 200px; */
+  /* background-color: rgba(0, 0, 0, 0.329); */
+  /* padding: 25px; */
+  /* position: relative; */
+
+}
+
+.weather-data-el-container {
+  /* width: fit-content; */
+  background-color: rgba(0, 0, 0, 0.329);
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #666; 
+
+}
+
+.weather-data-el-container::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  padding: 17px;
+  background: conic-gradient(
+    #ff53bb,
+    #0000 20deg 100deg,
+    #00f8d3 150deg 180deg,
+    #0000002b 210deg 280deg,
+    #ff53bb 330deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, 
+                linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+.weather-data-el {
+  background-color: var(--BOX-BACKGROUND-COLOR);
+  padding: 20px;
+  width:fit-content ;
+  border: 1px solid #747474;
+  background-size: 20px 20px;
+	background-image: var(--img-url), linear-gradient(#f9f047, #0fd850);
+}
+
+.bottom-container {
+  /* border: 1px solid white; */
+  padding: 10px;
+  width: 95%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(180px, 1fr) auto;
+  grid-template-rows: auto 1fr;
+  gap: 5px;
+  background-color: var(--BOX-BACKGROUND-COLOR);
+
+}
+
+.city-input-label {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  margin-left: 10px;
+  
+}
+
 .city-input-el {
-  margin: 3px 0 15px 0;
-  background-color: rgb(95, 93, 93);
-  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.548);
+  border-radius: 3px;
   border: 0;
   color: white;
   outline: none;
   padding: 8px 20px 8px;
-  width: 100%;
   display: flex;
   align-items: center;
   align-content: center;
+
+  grid-column: 1/2;
+  grid-row: 2/3;
 }
+
+.search-button {
+  margin-left: 8px;;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: fit-content;
+}
+
+
+.search-button {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 0.2rem;
+  padding-inline: .5rem;
+  background-color: rgb(83, 83, 83);
+  border-radius: 5px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  color: #ffff;
+  /* gap: 10px; */
+  font-weight: bold;
+  border: 2px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.search-button:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+  transform: translate(4px);
+}
+
+.search-button:active {
+background-color: rgb(58, 58, 58);
+border-color: rgb(0, 224, 194);
+}
+
+.search-button:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.search-button::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+
+
+.tomorrow-button {
+  font-weight: bold;
+  font-size: 1.3rem;
+  background: none;
+  border: none;
+  color: white;
+}
+
+.tomorrow-button:hover {
+  text-decoration: underline;
+}
+
+.tomorrow-button:active {
+  color: red;
+  transition: color .3s;
+  
+}
+

@@ -1,13 +1,28 @@
 import './style.css';
-import plus from './images/plus.svg';
+// import plus from './images/plus.svg';
+
+const weatherDataEl = document.querySelector('.weather-data-el');
+const cityNameEl = document.querySelector('.city-name-el');
+const timeEl = document.querySelector('.time-el');
+const conditionEl = document.querySelector('.condition-el');
+const temperatureEl = document.querySelector('.temperature-el');
+const celsiusEl = document.querySelector('.celsius-el');
+const fahrenheitEl = document.querySelector('.fahrenheit-el');
+const humidityEl = document.querySelector('.humidity-el');
+const tomorrowEl = document.querySelector('.tomorrow');
+const tomorrowButton = document.querySelector('.tomorrow-button');
+
+const cityInputEl = document.querySelector('.city-input-el');
+const searchButton = document.querySelector('.search-button');
+const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
+const conditionImg = document.querySelector('.condition-img');
 
 console.log('test');
 
-const testDiv = document.querySelector('.test');
-const plusImage = new Image();
-plusImage.src = plus;
-testDiv.append(plusImage);
-plusImage.style.width = '50px';
+// const plusImage = new Image();
+// plusImage.src = plus;
+// testDiv.append(plusImage);
+// plusImage.style.width = '50px';
 
 const mockWeatherData = {
   location: {
@@ -108,15 +123,9 @@ const mockWeatherData = {
   },
 };
 
-const mockFetch = async (url) => ({
+const mockFetch = async () => ({
   json: async () => mockWeatherData,
 });
-
-const weatherDataEl = document.querySelector('.weather-data-el');
-const cityInputEl = document.querySelector('.city-input-el');
-const searchButton = document.querySelector('.search-button');
-const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
-const conditionImg = document.querySelector('.condition-img');
 
 const handleSearchClick = async () => {
   const cityName = cityInputEl.value;
@@ -125,14 +134,32 @@ const handleSearchClick = async () => {
   // const response = await fetch(url, { mode: 'cors' });
   const response = await mockFetch();
   const json = await response.json();
-  console.log(json);
+  // console.log(json);
+  cityNameEl.innerText = json.location.name;
+  timeEl.innerText = json.location.localtime;
+  conditionEl.innerText = json.current.condition.text;
   conditionImg.setAttribute('src', json.current.condition.icon);
-  weatherDataEl.append(conditionImg);
+  conditionEl.append(conditionImg);
+  celsiusEl.innerText = json.current.temp_c;
+  fahrenheitEl.innerText = json.current.temp_f;
+  humidityEl.innerText = json.current.humidity;
+
+  return json;
 };
 
 searchButton.addEventListener('click', handleSearchClick);
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Enter') {
     handleSearchClick();
   }
 });
+
+const handleTomorrowClick = async () => {
+  const json = await handleSearchClick();
+  if (!json) {
+    console.log('nothing here');
+  }
+};
+
+tomorrowButton.addEventListener('click', handleTomorrowClick);
