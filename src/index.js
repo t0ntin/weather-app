@@ -2,7 +2,6 @@ import './style.css';
 import { convertEpochToDate } from './dates';
 import { format } from 'date-fns';
 
-// import plus from './images/plus.svg';
 
 // const weatherDataEl = document.querySelector('.weather-data-el');
 const cityNameEl = document.querySelector('.city-name-el');
@@ -11,7 +10,8 @@ const conditionEl = document.querySelector('.condition-el');
 // const temperatureEl = document.querySelector('.temperature-el');
 const celsiusEl = document.querySelector('.celsius-el');
 const fahrenheitEl = document.querySelector('.fahrenheit-el');
-const humidityEl = document.querySelector('.humidity-el');
+const humidityEl = document.querySelector('.humidity-p');
+const humiditySpanEl = document.querySelector('.humidity-span');
 // const temperatureEl2 = document.querySelector('.temperature-el-2');
 
 const tomorrowDateEl = document.querySelector('.tomorrow-date-el');
@@ -140,42 +140,54 @@ const mockFetch = async () => ({
 
 const handleSearchClick = async () => {
   const cityName = cityInputEl.value;
-  const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no`;
+  const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no&lang=es`;
   console.log(url);
   // const response = await fetch(url, { mode: 'cors' });
   const response = await mockFetch();
   const json = await response.json();
   // console.log(json);
-  cityNameEl.innerText = json.location.name;
   displayTodaysDate(json);
+  displayCurrentDayInfo(json);
+  // tomorrow
+  displayTomorrowsDate(json);
+  displayTomorrowsInfo(json);
+
+  return json;
+};
+
+
+const displayCurrentDayInfo = (json) => {
+  cityNameEl.innerText = json.location.name;
   conditionEl.innerText = json.current.condition.text;
   conditionImg.setAttribute('src', json.current.condition.icon);
   conditionEl.append(conditionImg);
   celsiusEl.innerText = json.current.temp_c;
   fahrenheitEl.innerText = json.current.temp_f;
-  humidityEl.innerText = json.current.humidity;
+  humiditySpanEl.innerText = json.current.humidity;
+}
 
-  // tomorrow
-  displayTomorrowsDate(json);
+const displayTomorrowsInfo = (json) => {
   celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
   fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
   conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
   conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
   conditionEl2.append(conditionImg2);
-
-  return json;
-};
+}
 
 const displayTodaysDate = (json) => {
   const dateEpoch = json.location.localtime_epoch;
-  const formattedDate = convertEpochToDate(dateEpoch);
+  const formattedDate = convertEpochToDate(dateEpoch).formattedDate;
   timeEl.innerText = formattedDate;
 }
 
 const displayTomorrowsDate = (json) => {
   const dateEpoch = json.forecast.forecastday[1].date_epoch;
-  const formattedDate = convertEpochToDate(dateEpoch);
+  const formattedDate = convertEpochToDate(dateEpoch).formattedDate2;
   tomorrowDateEl.innerText = formattedDate;
+}
+
+const changeBackground = (json) => {
+  
 }
 
 searchButton.addEventListener('click', handleSearchClick);

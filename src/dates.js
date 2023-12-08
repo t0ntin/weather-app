@@ -9,7 +9,9 @@ export const convertEpochToDate = (epoch) => {
 
   // Format the date
   const formattedDate = format(dateObject, 'MMM d. h:mm a');
+  const formattedDate2 = format(dateObject, 'MMM d');
 
-  return formattedDate;
+  return {formattedDate, formattedDate2};
 };
+
 

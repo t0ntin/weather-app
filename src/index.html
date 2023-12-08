@@ -6,44 +6,53 @@
   <title>Weather App</title>
 </head>
 <body>
-  <main class="main flex-col">
-    <div class="weather-data-el-container flex-col">
+  <div class="wrapper">
 
-      <div class="weather-data-el flex-col"> 
-  
-        <p class="city-name-el">City Name</p>
-        <p class="time-el">3:30</p>
-        <p class="condition-el">Parcialmente nublado</p>
-  
-        <img src="" alt="" class="condition-img" width=80>
-        <p class="temperature-el">
-          <span class="celsius-el">30C</span> / 
-          <span class="fahrenheit-el">100F</span>
-        </p>
-        <p class="humidity-el">Humedad 90</p>
-
+    <main class="main">
+      <div class="weather-data-el-container-wrapper">
+        
+        <div class="weather-data-el-container">
+    
+          <div class="weather-data-el flex-col"> 
+      
+            <p class="city-name-el">City Name</p>
+            <div class="separator-line"></div>
+            <p class="time-el">3:30</p>
+            <p class="condition-el">Parcialmente nublado</p>
+      
+            <img src="" alt="" class="condition-img" width=80>
+            <p class="temperature-el">
+              <span class="celsius-el">30C</span>°C / 
+              <span class="fahrenheit-el">100F</span>°F
+            </p>
+            <p class="humidity-p">Humedad: 
+              <span class="humidity-span"></span>
+            </p>
+    
+          </div>
+    
+          <!-- TOMORROW -->
+          <div class="weather-data-tomorrow-el flex-col">
+            <p class="tomorrow">Mañana:</p>
+            <p class="tomorrow-date-el">Dec 7</p>
+            <p class="temperature-el-2">
+              <span class="celsius-el-2">30C</span>°C /  
+              <span class="fahrenheit-el-2">100F</span>°F
+            </p>
+            <p class="condition-el-2">Lluvia moderada</p>
+            <img src="" alt="" class="condition-img-2" width=80>
+          </div>  
+        </div>
       </div>
-
-  <!-- TOMORROW -->
-      <div class="weather-data-tomorrow-el flex-col">
-        <p class="tomorrow">Manana:</p>
-        <p class="tomorrow-date-el">Dec 7</p>
-        <p class="temperature-el-2">
-          <span class="celsius-el-2">30C</span> / 
-          <span class="fahrenheit-el-2">100F</span>
-        </p>
-        <p class="condition-el-2">Lluvia moderada</p>
-        <img src="" alt="" class="condition-img-2" width=80>
-      </div>  
-    </div>
-
+  
+      
+    </main>
     <div class="bottom-container">
-      <label for="city-input-el" class="city-input-label">Como esta el tiempo en: </label>
+      <label for="city-input-el" class="city-input-label">Cómo está el tiempo en: </label>
       <input type="text" id="city-input-el" class="city-input-el" placeholder="Ciudad">
-    <button class="search-button">Consultar</button>
-
-  </main>
-</div>
+      <button class="search-button">Consultar</button>
+    </div>
+  </div>
 
 
 </body>
