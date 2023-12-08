@@ -13,6 +13,7 @@ const wrapper = document.querySelector('.wrapper');
 const cityNameEl = document.querySelector('.city-name-el');
 const timeEl = document.querySelector('.time-el');
 const conditionEl = document.querySelector('.condition-el');
+const conditionImageEl = document.querySelector('.condition-img-el');
 // const temperatureEl = document.querySelector('.temperature-el');
 const celsiusEl = document.querySelector('.celsius-el');
 const fahrenheitEl = document.querySelector('.fahrenheit-el');
@@ -24,6 +25,8 @@ const tomorrowDateEl = document.querySelector('.tomorrow-date-el');
 const celsiusEl2 = document.querySelector('.celsius-el-2');
 const fahrenheitEl2 = document.querySelector('.fahrenheit-el-2');
 const conditionEl2 = document.querySelector('.condition-el-2');
+const conditionImageEl2 = document.querySelector('.condition-img-el-2');
+
 
 // const tomorrowEl = document.querySelector('.tomorrow');
 // const tomorrowButton = document.querySelector('.tomorrow-button');
@@ -162,7 +165,7 @@ const displayCurrentDayInfo = (json) => {
   cityNameEl.innerText = json.location.name;
   conditionEl.innerText = json.current.condition.text;
   conditionImg.setAttribute('src', json.current.condition.icon);
-  conditionEl.append(conditionImg);
+  // conditionImageEl.append(conditionImg);
   celsiusEl.innerText = json.current.temp_c;
   fahrenheitEl.innerText = json.current.temp_f;
   humiditySpanEl.innerText = json.current.humidity;
@@ -173,7 +176,7 @@ const displayTomorrowsInfo = (json) => {
   fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
   conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
   conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
-  conditionEl2.append(conditionImg2);
+  // conditionImageEl2.append(conditionImg2);
 }
 
 const displayTodaysDate = (json) => {
