@@ -4,12 +4,16 @@ import { convertEpochToDate } from './dates';
 import partlyCloudy from './images/partly-cloudy.jpg';
 import mostlyCloudy from './images/mostly-cloudy.jpg';
 import rainy from './images/rainy.webp';
-import sunny from './images/sunny.jpeg';
+import sunny from './images/sunny.jpg';
 import freezingFog from './images/freezing-fog.jpg';
+import foggy from './images/foggy.jpeg';
+import heavySnowFall from './images/heavy-snow-fall.webp';
+import moderateSnowFall from './images/moderate-snow-fall.jpg';
 
 
 
 const wrapper = document.querySelector('.wrapper');
+const mainEl = document.querySelector('.main');
 const cityNameEl = document.querySelector('.city-name-el');
 const timeEl = document.querySelector('.time-el');
 const conditionEl = document.querySelector('.condition-el');
@@ -116,7 +120,7 @@ const mockWeatherData = {
           daily_will_it_snow: 0,
           daily_chance_of_snow: 0,
           condition: {
-            text: 'Moderate rain',
+            text: 'Lluvia moderada a intervalos',
             icon: '//cdn.weatherapi.com/weather/64x64/day/302.png',
             code: 1189,
           },
@@ -147,10 +151,11 @@ const handleSearchClick = async () => {
   const cityName = cityInputEl.value;
   const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no&lang=es`;
   console.log(url);
-  const response = await fetch(url, { mode: 'cors' });
-  // const response = await mockFetch();
+  // const response = await fetch(url, { mode: 'cors' });
+  const response = await mockFetch();
   const json = await response.json();
   // console.log(json);
+  showWeatherInfo();
   displayTodaysDate(json);
   displayCurrentDayInfo(json);
   // tomorrow
@@ -165,7 +170,6 @@ const displayCurrentDayInfo = (json) => {
   cityNameEl.innerText = json.location.name;
   conditionEl.innerText = json.current.condition.text;
   conditionImg.setAttribute('src', json.current.condition.icon);
-  // conditionImageEl.append(conditionImg);
   celsiusEl.innerText = json.current.temp_c;
   fahrenheitEl.innerText = json.current.temp_f;
   humiditySpanEl.innerText = json.current.humidity;
@@ -176,7 +180,6 @@ const displayTomorrowsInfo = (json) => {
   fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
   conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
   conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
-  // conditionImageEl2.append(conditionImg2);
 }
 
 const displayTodaysDate = (json) => {
@@ -194,11 +197,12 @@ const displayTomorrowsDate = (json) => {
 const changeBackground = () => {
   if (conditionEl.innerText == "Parcialmente nublado") {
     wrapper.style.backgroundImage = `url('${partlyCloudy}')`;
+    console.log('changed to partly cloudy');
   }
   if (conditionEl.innerText == "Soleado") {
     wrapper.style.backgroundImage = `url('${sunny}')`;
   }
-  if (conditionEl.innerText == "Cielo cubierto") {
+  if (conditionEl.innerText == "Cielo cubierto" ||conditionEl.innerText == "Nublado" ) {
     wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
   }
   if (conditionEl.innerText.includes('Lluvia')) {
@@ -207,7 +211,19 @@ const changeBackground = () => {
   if (conditionEl.innerText == "Niebla helada") {
     wrapper.style.backgroundImage = `url('${freezingFog}')`;
   }
-// nevadas ligeras, nieve moderada, 
+  if (conditionEl.innerText == "Neblina") {
+    wrapper.style.backgroundImage = `url('${foggy}')`;
+  }
+  if (conditionEl.innerText == "Fuertes nevadas") {
+    wrapper.style.backgroundImage = `url('${heavySnowFall}')`;
+  }
+  if (conditionEl.innerText == "Nieve moderada" || conditionEl.innerText == "Nevadas ligeras") {
+    wrapper.style.backgroundImage = `url('${moderateSnowFall}')`;
+  }
+}
+
+const showWeatherInfo = () => {
+  mainEl.classList.add('active');
 }
 
 searchButton.addEventListener('click', handleSearchClick);
