@@ -13,5 +13,5 @@
             "error",
             {"devDependencies": true}
           ]
-      },
+      }
 }

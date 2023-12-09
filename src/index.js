@@ -1,6 +1,5 @@
 import './style.css';
 import { convertEpochToDate } from './dates';
-// import { format } from 'date-fns';
 import partlyCloudy from './images/partly-cloudy.jpg';
 import mostlyCloudy from './images/mostly-cloudy.jpg';
 import rainy from './images/rainy.webp';
@@ -10,39 +9,25 @@ import foggy from './images/foggy.jpeg';
 import heavySnowFall from './images/heavy-snow-fall.webp';
 import moderateSnowFall from './images/moderate-snow-fall.jpg';
 
-
-
 const wrapper = document.querySelector('.wrapper');
 const mainEl = document.querySelector('.main');
 const cityNameEl = document.querySelector('.city-name-el');
 const timeEl = document.querySelector('.time-el');
 const conditionEl = document.querySelector('.condition-el');
-const conditionImageEl = document.querySelector('.condition-img-el');
-// const temperatureEl = document.querySelector('.temperature-el');
 const celsiusEl = document.querySelector('.celsius-el');
 const fahrenheitEl = document.querySelector('.fahrenheit-el');
 const humidityEl = document.querySelector('.humidity-p');
-const humiditySpanEl = document.querySelector('.humidity-span');
-// const temperatureEl2 = document.querySelector('.temperature-el-2');
 
 const tomorrowDateEl = document.querySelector('.tomorrow-date-el');
 const celsiusEl2 = document.querySelector('.celsius-el-2');
 const fahrenheitEl2 = document.querySelector('.fahrenheit-el-2');
 const conditionEl2 = document.querySelector('.condition-el-2');
-const conditionImageEl2 = document.querySelector('.condition-img-el-2');
-
-
-// const tomorrowEl = document.querySelector('.tomorrow');
-// const tomorrowButton = document.querySelector('.tomorrow-button');
 
 const cityInputEl = document.querySelector('.city-input-el');
 const searchButton = document.querySelector('.search-button');
 const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
 const conditionImg = document.querySelector('.condition-img');
 const conditionImg2 = document.querySelector('.condition-img-2');
-
-
-
 
 const mockWeatherData = {
   location: {
@@ -147,6 +132,65 @@ const mockFetch = async () => ({
   json: async () => mockWeatherData,
 });
 
+const displayCurrentDayInfo = (json) => {
+  cityNameEl.innerText = json.location.name;
+  conditionEl.innerText = json.current.condition.text;
+  conditionImg.setAttribute('src', json.current.condition.icon);
+  celsiusEl.innerText = `${json.current.temp_c}°C / `;
+  fahrenheitEl.innerText = `${json.current.temp_f}°F`;
+  humidityEl.innerText = `Humidity: ${json.current.humidity}`;
+};
+
+const displayTomorrowsInfo = (json) => {
+  celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
+  fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
+  conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
+  conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
+};
+
+const displayTodaysDate = (json) => {
+  const dateEpoch = json.location.localtime_epoch;
+  const { formattedDate } = convertEpochToDate(dateEpoch);
+  timeEl.innerText = formattedDate;
+};
+
+const displayTomorrowsDate = (json) => {
+  const dateEpoch = json.forecast.forecastday[1].date_epoch;
+  const formattedDate = convertEpochToDate(dateEpoch).formattedDate2;
+  tomorrowDateEl.innerText = formattedDate;
+};
+
+const changeBackground = () => {
+  if (conditionEl.innerText == 'Parcialmente nublado') {
+    wrapper.style.backgroundImage = `url('${partlyCloudy}')`;
+  }
+  if (conditionEl.innerText == 'Soleado') {
+    wrapper.style.backgroundImage = `url('${sunny}')`;
+  }
+  if (conditionEl.innerText == 'Cielo cubierto' || conditionEl.innerText == 'Nublado') {
+    wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
+  }
+  if (conditionEl.innerText.includes('Lluvia')) {
+    wrapper.style.backgroundImage = `url('${rainy}')`;
+  }
+  if (conditionEl.innerText == 'Niebla helada') {
+    wrapper.style.backgroundImage = `url('${freezingFog}')`;
+  }
+  if (conditionEl.innerText == 'Neblina') {
+    wrapper.style.backgroundImage = `url('${foggy}')`;
+  }
+  if (conditionEl.innerText == 'Fuertes nevadas') {
+    wrapper.style.backgroundImage = `url('${heavySnowFall}')`;
+  }
+  if (conditionEl.innerText == 'Nieve moderada' || conditionEl.innerText == 'Nevadas ligeras') {
+    wrapper.style.backgroundImage = `url('${moderateSnowFall}')`;
+  }
+};
+
+const showWeatherInfo = () => {
+  mainEl.classList.add('active');
+};
+
 const handleSearchClick = async () => {
   const cityName = cityInputEl.value;
   const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no&lang=es`;
@@ -164,67 +208,6 @@ const handleSearchClick = async () => {
   changeBackground();
   return json;
 };
-
-
-const displayCurrentDayInfo = (json) => {
-  cityNameEl.innerText = json.location.name;
-  conditionEl.innerText = json.current.condition.text;
-  conditionImg.setAttribute('src', json.current.condition.icon);
-  celsiusEl.innerText = json.current.temp_c;
-  fahrenheitEl.innerText = json.current.temp_f;
-  humiditySpanEl.innerText = json.current.humidity;
-}
-
-const displayTomorrowsInfo = (json) => {
-  celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
-  fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
-  conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
-  conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
-}
-
-const displayTodaysDate = (json) => {
-  const dateEpoch = json.location.localtime_epoch;
-  const formattedDate = convertEpochToDate(dateEpoch).formattedDate;
-  timeEl.innerText = formattedDate;
-}
-
-const displayTomorrowsDate = (json) => {
-  const dateEpoch = json.forecast.forecastday[1].date_epoch;
-  const formattedDate = convertEpochToDate(dateEpoch).formattedDate2;
-  tomorrowDateEl.innerText = formattedDate;
-}
-
-const changeBackground = () => {
-  if (conditionEl.innerText == "Parcialmente nublado") {
-    wrapper.style.backgroundImage = `url('${partlyCloudy}')`;
-    console.log('changed to partly cloudy');
-  }
-  if (conditionEl.innerText == "Soleado") {
-    wrapper.style.backgroundImage = `url('${sunny}')`;
-  }
-  if (conditionEl.innerText == "Cielo cubierto" ||conditionEl.innerText == "Nublado" ) {
-    wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
-  }
-  if (conditionEl.innerText.includes('Lluvia')) {
-    wrapper.style.backgroundImage = `url('${rainy}')`;
-  }
-  if (conditionEl.innerText == "Niebla helada") {
-    wrapper.style.backgroundImage = `url('${freezingFog}')`;
-  }
-  if (conditionEl.innerText == "Neblina") {
-    wrapper.style.backgroundImage = `url('${foggy}')`;
-  }
-  if (conditionEl.innerText == "Fuertes nevadas") {
-    wrapper.style.backgroundImage = `url('${heavySnowFall}')`;
-  }
-  if (conditionEl.innerText == "Nieve moderada" || conditionEl.innerText == "Nevadas ligeras") {
-    wrapper.style.backgroundImage = `url('${moderateSnowFall}')`;
-  }
-}
-
-const showWeatherInfo = () => {
-  mainEl.classList.add('active');
-}
 
 searchButton.addEventListener('click', handleSearchClick);
 
