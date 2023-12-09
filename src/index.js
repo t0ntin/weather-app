@@ -1,5 +1,5 @@
 import './style.css';
-import { convertEpochToDate } from './dates';
+import { convertEpochToDate, formatDate } from './dates';
 import partlyCloudy from './images/partly-cloudy.jpg';
 import mostlyCloudy from './images/mostly-cloudy.jpg';
 import rainy from './images/rainy.webp';
@@ -8,6 +8,7 @@ import freezingFog from './images/freezing-fog.jpg';
 import foggy from './images/foggy.jpeg';
 import heavySnowFall from './images/heavy-snow-fall.webp';
 import moderateSnowFall from './images/moderate-snow-fall.jpg';
+import loadingImage from './images/loading.svg';
 
 const wrapper = document.querySelector('.wrapper');
 const mainEl = document.querySelector('.main');
@@ -28,6 +29,8 @@ const searchButton = document.querySelector('.search-button');
 const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
 const conditionImg = document.querySelector('.condition-img');
 const conditionImg2 = document.querySelector('.condition-img-2');
+const loadingImageEl = document.querySelector('.loading-img-el');
+const bottomContainer = document.querySelector('.bottom-container');
 
 const mockWeatherData = {
   location: {
@@ -155,9 +158,10 @@ const displayTodaysDate = (json) => {
 };
 
 const displayTomorrowsDate = (json) => {
-  const dateEpoch = json.forecast.forecastday[1].date_epoch;
-  const formattedDate = convertEpochToDate(dateEpoch).formattedDate2;
+  const unformattedDate = json.forecast.forecastday[1].date;
+  const formattedDate = formatDate(unformattedDate);
   tomorrowDateEl.innerText = formattedDate;
+  console.log(`tomorrows date: ${formattedDate}`);
 };
 
 const changeBackground = () => {
@@ -187,26 +191,54 @@ const changeBackground = () => {
   }
 };
 
-const showWeatherInfo = () => {
+const showMainEl = () => {
   mainEl.classList.add('active');
 };
 
+const fetchData = async (url) => {
+  // try {
+  //   const response = await fetch(url, { mode: 'cors' });
+  //   const json = await response.json();
+  //   showMainEl();
+  //   displayTodaysDate(json);
+  //   displayCurrentDayInfo(json);
+  //   // tomorrow
+  //   displayTomorrowsDate(json);
+  //   displayTomorrowsInfo(json);
+  //   changeBackground();
+  // } catch (error) {
+  //   console.error('Error fetching data: ', error);
+  // } finally {
+  //   loadingImage.remove();
+  // }
+};
+console.log(loadingImage);
 const handleSearchClick = async () => {
+  const loadingSVG = new Image();
+  loadingSVG.src = loadingImage;
+  mainEl.append(loadingSVG);
+
   const cityName = cityInputEl.value;
   const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no&lang=es`;
   console.log(url);
-  // const response = await fetch(url, { mode: 'cors' });
-  const response = await mockFetch();
-  const json = await response.json();
-  // console.log(json);
-  showWeatherInfo();
-  displayTodaysDate(json);
-  displayCurrentDayInfo(json);
-  // tomorrow
-  displayTomorrowsDate(json);
-  displayTomorrowsInfo(json);
-  changeBackground();
-  return json;
+
+  try {
+    const response = await fetch(url, { mode: 'cors' });
+    const json = await response.json();
+
+    showMainEl();
+    displayTodaysDate(json);
+    displayCurrentDayInfo(json);
+    // tomorrow
+    displayTomorrowsDate(json);
+    displayTomorrowsInfo(json);
+    changeBackground();
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+  } finally {
+    // Remove the loading SVG
+    loadingSVG.remove();
+  }
 };
 
 searchButton.addEventListener('click', handleSearchClick);

@@ -11,7 +11,10 @@ export const convertEpochToDate = (epoch) => {
   const formattedDate = format(dateObject, 'MMM d. h:mm a');
   const formattedDate2 = format(dateObject, 'MMM d');
 
-  return {formattedDate, formattedDate2};
+  return { formattedDate, formattedDate2 };
 };
 
-
+export function formatDate(inputDate) {
+  const parsedDate = new Date(inputDate);
+  return format(parsedDate, 'MMM d');
+}
