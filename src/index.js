@@ -1,36 +1,27 @@
 import './style.css';
+import {
+  wrapper,
+  mainEl,
+  cityNameEl,
+  timeEl,
+  conditionEl,
+  celsiusEl,
+  fahrenheitEl,
+  humidityEl,
+  tomorrowDateEl,
+  celsiusEl2,
+  fahrenheitEl2,
+  conditionEl2,
+  cityInputEl,
+  searchButton,
+  baseUrl,
+  conditionImg,
+  conditionImg2,
+} from './dom-cache';
+import changeBackground from './change-background';
 import { convertEpochToDate, formatDate } from './dates';
-import partlyCloudy from './images/partly-cloudy.jpg';
-import mostlyCloudy from './images/mostly-cloudy.jpg';
-import rainy from './images/rainy.webp';
-import sunny from './images/sunny.jpg';
-import freezingFog from './images/freezing-fog.jpg';
-import foggy from './images/foggy.jpeg';
-import heavySnowFall from './images/heavy-snow-fall.webp';
-import moderateSnowFall from './images/moderate-snow-fall.jpg';
+
 import loadingImage from './images/loading.svg';
-
-const wrapper = document.querySelector('.wrapper');
-const mainEl = document.querySelector('.main');
-const cityNameEl = document.querySelector('.city-name-el');
-const timeEl = document.querySelector('.time-el');
-const conditionEl = document.querySelector('.condition-el');
-const celsiusEl = document.querySelector('.celsius-el');
-const fahrenheitEl = document.querySelector('.fahrenheit-el');
-const humidityEl = document.querySelector('.humidity-p');
-
-const tomorrowDateEl = document.querySelector('.tomorrow-date-el');
-const celsiusEl2 = document.querySelector('.celsius-el-2');
-const fahrenheitEl2 = document.querySelector('.fahrenheit-el-2');
-const conditionEl2 = document.querySelector('.condition-el-2');
-
-const cityInputEl = document.querySelector('.city-input-el');
-const searchButton = document.querySelector('.search-button');
-const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c70ba820628230312&q=';
-const conditionImg = document.querySelector('.condition-img');
-const conditionImg2 = document.querySelector('.condition-img-2');
-const loadingImageEl = document.querySelector('.loading-img-el');
-const bottomContainer = document.querySelector('.bottom-container');
 
 const mockWeatherData = {
   location: {
@@ -164,55 +155,10 @@ const displayTomorrowsDate = (json) => {
   console.log(`tomorrows date: ${formattedDate}`);
 };
 
-const changeBackground = () => {
-  if (conditionEl.innerText == 'Parcialmente nublado') {
-    wrapper.style.backgroundImage = `url('${partlyCloudy}')`;
-  }
-  if (conditionEl.innerText == 'Soleado') {
-    wrapper.style.backgroundImage = `url('${sunny}')`;
-  }
-  if (conditionEl.innerText == 'Cielo cubierto' || conditionEl.innerText == 'Nublado') {
-    wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
-  }
-  if (conditionEl.innerText.includes('Lluvia')) {
-    wrapper.style.backgroundImage = `url('${rainy}')`;
-  }
-  if (conditionEl.innerText == 'Niebla helada') {
-    wrapper.style.backgroundImage = `url('${freezingFog}')`;
-  }
-  if (conditionEl.innerText == 'Neblina') {
-    wrapper.style.backgroundImage = `url('${foggy}')`;
-  }
-  if (conditionEl.innerText == 'Fuertes nevadas') {
-    wrapper.style.backgroundImage = `url('${heavySnowFall}')`;
-  }
-  if (conditionEl.innerText == 'Nieve moderada' || conditionEl.innerText == 'Nevadas ligeras') {
-    wrapper.style.backgroundImage = `url('${moderateSnowFall}')`;
-  }
-};
-
 const showMainEl = () => {
   mainEl.classList.add('active');
 };
 
-const fetchData = async (url) => {
-  // try {
-  //   const response = await fetch(url, { mode: 'cors' });
-  //   const json = await response.json();
-  //   showMainEl();
-  //   displayTodaysDate(json);
-  //   displayCurrentDayInfo(json);
-  //   // tomorrow
-  //   displayTomorrowsDate(json);
-  //   displayTomorrowsInfo(json);
-  //   changeBackground();
-  // } catch (error) {
-  //   console.error('Error fetching data: ', error);
-  // } finally {
-  //   loadingImage.remove();
-  // }
-};
-console.log(loadingImage);
 const handleSearchClick = async () => {
   const loadingSVG = new Image();
   loadingSVG.src = loadingImage;
@@ -236,7 +182,6 @@ const handleSearchClick = async () => {
   } catch (error) {
     console.error('Error fetching data: ', error);
   } finally {
-    // Remove the loading SVG
     loadingSVG.remove();
   }
 };
