@@ -159,17 +159,22 @@ const showMainEl = () => {
   mainEl.classList.add('active');
 };
 
+const transformConditionImg = () => {
+  conditionImg.classList.add('active');
+  conditionImg2.classList.add('active');
+};
+
 const handleSearchClick = async () => {
   const loadingSVG = new Image();
   loadingSVG.src = loadingImage;
   mainEl.append(loadingSVG);
-
   const cityName = cityInputEl.value;
   const url = `${baseUrl}${cityName}&days=2&aqi=no&alerts=no&lang=es`;
   console.log(url);
 
   try {
-    const response = await fetch(url, { mode: 'cors' });
+    // const response = await fetch(url, { mode: 'cors' });
+    const response = await mockFetch();
     const json = await response.json();
 
     showMainEl();
@@ -183,6 +188,7 @@ const handleSearchClick = async () => {
     console.error('Error fetching data: ', error);
   } finally {
     loadingSVG.remove();
+    transformConditionImg();
   }
 };
 
