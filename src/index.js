@@ -193,3 +193,5 @@ document.addEventListener('keydown', (event) => {
     handleSearchClick();
   }
 });
+
+cityInputEl.focus();

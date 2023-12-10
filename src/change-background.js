@@ -12,13 +12,13 @@ const changeBackground = () => {
   if (conditionEl.innerText == 'Parcialmente nublado') {
     wrapper.style.backgroundImage = `url('${partlyCloudy}')`;
   }
-  if (conditionEl.innerText == 'Soleado') {
+  if (conditionEl.innerText == 'Despejado') {
     wrapper.style.backgroundImage = `url('${sunny}')`;
   }
   if (conditionEl.innerText == 'Cielo cubierto' || conditionEl.innerText == 'Nublado') {
     wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
   }
-  if (conditionEl.innerText.includes('Lluvia')) {
+  if (conditionEl.innerText.includes('Lluvia') || conditionEl.innerText.includes('lluvias')) {
     wrapper.style.backgroundImage = `url('${rainy}')`;
   }
   if (conditionEl.innerText == 'Niebla helada') {
