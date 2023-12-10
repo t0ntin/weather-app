@@ -1,6 +1,9 @@
 {
   "name": "vscode-eslint-example",
   "version": "1.0.0",
+  "prettier": {
+    "singleQuote": true
+  },
   "description": "",
   "private": true,
   "scripts": {

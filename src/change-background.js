@@ -15,10 +15,16 @@ const changeBackground = () => {
   if (conditionEl.innerText == 'Despejado') {
     wrapper.style.backgroundImage = `url('${sunny}')`;
   }
-  if (conditionEl.innerText == 'Cielo cubierto' || conditionEl.innerText == 'Nublado') {
+  if (
+    conditionEl.innerText == 'Cielo cubierto'
+    || conditionEl.innerText == 'Nublado'
+  ) {
     wrapper.style.backgroundImage = `url('${mostlyCloudy}')`;
   }
-  if (conditionEl.innerText.includes('Lluvia') || conditionEl.innerText.includes('lluvias')) {
+  if (
+    conditionEl.innerText.includes('Lluvia')
+    || conditionEl.innerText.includes('lluvias')
+  ) {
     wrapper.style.backgroundImage = `url('${rainy}')`;
   }
   if (conditionEl.innerText == 'Niebla helada') {
@@ -30,7 +36,10 @@ const changeBackground = () => {
   if (conditionEl.innerText == 'Fuertes nevadas') {
     wrapper.style.backgroundImage = `url('${heavySnowFall}')`;
   }
-  if (conditionEl.innerText == 'Nieve moderada' || conditionEl.innerText == 'Nevadas ligeras') {
+  if (
+    conditionEl.innerText == 'Nieve moderada'
+    || conditionEl.innerText == 'Nevadas ligeras'
+  ) {
     wrapper.style.backgroundImage = `url('${moderateSnowFall}')`;
   }
 };

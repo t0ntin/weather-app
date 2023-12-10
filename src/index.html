@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-</head>
-<body>
-  <div class="wrapper">
-
-    <main class="main">
-      <div class="weather-data-el-container-wrapper">
-        
-        <div class="weather-data-el-container">
-    
-          <div class="weather-data-el flex-col"> 
-      
-            <p class="city-name-el"></p>
-            <div class="separator-line"></div>
-            <p class="time-el"></p>
-            <p class="condition-el"></p>
-            <div>
-              <img src="" alt="" class="condition-img" width=100>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <main class="main">
+        <div class="weather-data-el-container-wrapper">
+          <div class="weather-data-el-container">
+            <div class="weather-data-el flex-col">
+              <p class="city-name-el"></p>
+              <div class="separator-line"></div>
+              <p class="time-el"></p>
+              <p class="condition-el"></p>
+              <div>
+                <img src="" alt="" class="condition-img" width="100" />
+              </div>
+              <p class="temperature-el">
+                <span class="celsius-el"></span>
+                <span class="fahrenheit-el"></span>
+              </p>
+              <p class="humidity-p"></p>
             </div>
-            <p class="temperature-el">
-              <span class="celsius-el"></span> 
-              <span class="fahrenheit-el"></span>
-            </p>
-            <p class="humidity-p">
-            </p>
+
+            <!-- TOMORROW -->
+            <div class="weather-data-tomorrow-el flex-col">
+              <p class="tomorrow">Mañana:</p>
+              <p class="tomorrow-date-el"></p>
+              <p class="temperature-el-2">
+                <span class="celsius-el-2"></span>°C /
+                <span class="fahrenheit-el-2"></span>°F
+              </p>
+              <p class="condition-el-2"></p>
+              <div>
+                <img src="" alt="" class="condition-img-2" width="100" />
+              </div>
+            </div>
           </div>
-    
-          <!-- TOMORROW -->
-          <div class="weather-data-tomorrow-el flex-col">
-            <p class="tomorrow">Mañana:</p>
-            <p class="tomorrow-date-el"></p>
-            <p class="temperature-el-2">
-              <span class="celsius-el-2"></span>°C /  
-              <span class="fahrenheit-el-2"></span>°F
-            </p>
-            <p class="condition-el-2"></p>
-            <div>
-              <img src="" alt="" class="condition-img-2" width=100>
-            </div>
-          </div>  
         </div>
+      </main>
+      <div class="bottom-container">
+        <label for="city-input-el" class="city-input-label"
+          >Así está el tiempo en:
+        </label>
+        <input
+          type="text"
+          id="city-input-el"
+          class="city-input-el"
+          placeholder="Ciudad"
+        />
+        <button class="search-button">Ver 🔍</button>
       </div>
-    </main>
-    <div class="bottom-container">
-      <label for="city-input-el" class="city-input-label">Así está el tiempo en: </label>
-      <input type="text" id="city-input-el" class="city-input-el" placeholder="Ciudad">
-      <button class="search-button">Ver 🔍</button>
     </div>
-  </div>
-
-
-</body>
+  </body>
 </html>
-
