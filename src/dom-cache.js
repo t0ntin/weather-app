@@ -18,6 +18,27 @@ const baseUrl = 'https://api.weatherapi.com/v1/forecast.json?key=dc5b7d95a22a4c7
 const conditionImg = document.querySelector('.condition-img');
 const conditionImg2 = document.querySelector('.condition-img-2');
 
+const displayCurrentDayInfo = (json) => {
+  cityNameEl.innerText = json.location.name;
+  conditionEl.innerText = json.current.condition.text;
+  conditionImg.setAttribute('src', json.current.condition.icon);
+  celsiusEl.innerText = `${json.current.temp_c}°C / `;
+  fahrenheitEl.innerText = `${json.current.temp_f}°F`;
+  humidityEl.innerText = `Humedad: ${json.current.humidity}`;
+};
+
+const displayTomorrowsInfo = (json) => {
+  celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
+  fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
+  conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
+  conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
+};
+
+const transformConditionImg = () => {
+  conditionImg.classList.add('active');
+  conditionImg2.classList.add('active');
+};
+
 export {
   wrapper,
   mainEl,
@@ -36,4 +57,7 @@ export {
   baseUrl,
   conditionImg,
   conditionImg2,
+  displayCurrentDayInfo,
+  displayTomorrowsInfo,
+  transformConditionImg,
 };

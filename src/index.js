@@ -1,25 +1,15 @@
 import './style.css';
 import {
-  wrapper,
   mainEl,
-  cityNameEl,
-  timeEl,
-  conditionEl,
-  celsiusEl,
-  fahrenheitEl,
-  humidityEl,
-  tomorrowDateEl,
-  celsiusEl2,
-  fahrenheitEl2,
-  conditionEl2,
   cityInputEl,
   searchButton,
   baseUrl,
-  conditionImg,
-  conditionImg2,
+  displayCurrentDayInfo,
+  displayTomorrowsInfo,
+  transformConditionImg,
 } from './dom-cache';
 import changeBackground from './change-background';
-import { convertEpochToDate, formatDate } from './dates';
+import { displayTodaysDate, displayTomorrowsDate } from './dates';
 
 import loadingImage from './images/loading.svg';
 
@@ -126,42 +116,8 @@ const mockFetch = async () => ({
   json: async () => mockWeatherData,
 });
 
-const displayCurrentDayInfo = (json) => {
-  cityNameEl.innerText = json.location.name;
-  conditionEl.innerText = json.current.condition.text;
-  conditionImg.setAttribute('src', json.current.condition.icon);
-  celsiusEl.innerText = `${json.current.temp_c}°C / `;
-  fahrenheitEl.innerText = `${json.current.temp_f}°F`;
-  humidityEl.innerText = `Humidity: ${json.current.humidity}`;
-};
-
-const displayTomorrowsInfo = (json) => {
-  celsiusEl2.innerText = json.forecast.forecastday[1].day.maxtemp_c;
-  fahrenheitEl2.innerText = json.forecast.forecastday[1].day.maxtemp_f;
-  conditionEl2.innerText = json.forecast.forecastday[1].day.condition.text;
-  conditionImg2.setAttribute('src', json.forecast.forecastday[1].day.condition.icon);
-};
-
-const displayTodaysDate = (json) => {
-  const dateEpoch = json.location.localtime_epoch;
-  const { formattedDate } = convertEpochToDate(dateEpoch);
-  timeEl.innerText = formattedDate;
-};
-
-const displayTomorrowsDate = (json) => {
-  const unformattedDate = json.forecast.forecastday[1].date;
-  const formattedDate = formatDate(unformattedDate);
-  tomorrowDateEl.innerText = formattedDate;
-  console.log(`tomorrows date: ${formattedDate}`);
-};
-
 const showMainEl = () => {
   mainEl.classList.add('active');
-};
-
-const transformConditionImg = () => {
-  conditionImg.classList.add('active');
-  conditionImg2.classList.add('active');
 };
 
 const handleSearchClick = async () => {
@@ -173,8 +129,9 @@ const handleSearchClick = async () => {
   console.log(url);
 
   try {
-    // const response = await fetch(url, { mode: 'cors' });
-    const response = await mockFetch();
+    const response = await fetch(url, { mode: 'cors' });
+    // development helper function
+    // const response = await mockFetch();
     const json = await response.json();
 
     showMainEl();

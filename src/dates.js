@@ -1,6 +1,7 @@
 import { format, toDate } from 'date-fns';
+import { timeEl, tomorrowDateEl } from './dom-cache';
 
-export const convertEpochToDate = (epoch) => {
+const convertEpochToDate = (epoch) => {
   // Convert seconds to milliseconds (date-fns expects milliseconds)
   const dateInMilliseconds = epoch * 1000;
 
@@ -14,7 +15,22 @@ export const convertEpochToDate = (epoch) => {
   return { formattedDate, formattedDate2 };
 };
 
-export function formatDate(inputDate) {
+function formatDate(inputDate) {
   const parsedDate = new Date(inputDate);
   return format(parsedDate, 'MMM d');
 }
+
+const displayTodaysDate = (json) => {
+  const dateEpoch = json.location.localtime_epoch;
+  const { formattedDate } = convertEpochToDate(dateEpoch);
+  timeEl.innerText = formattedDate;
+};
+
+const displayTomorrowsDate = (json) => {
+  const unformattedDate = json.forecast.forecastday[1].date;
+  const formattedDate = formatDate(unformattedDate);
+  tomorrowDateEl.innerText = formattedDate;
+  console.log(`tomorrows date: ${formattedDate}`);
+};
+
+export { displayTodaysDate, displayTomorrowsDate };
